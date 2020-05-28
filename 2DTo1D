@@ -26,11 +26,12 @@ void main()
   /******************************/
   printf("SortByColumn:1,SortByRow:0\nEnter flag:");
   scanf("%d", &flag);
-	/*
+ /*
   if (flag) 
 	SortCOLUMN(w, a, &n, 3, 4);
-  else SortROW(w, a, &n, 3, 4);*/
-	Sort(w, a, &n, 3, 4, flag);
+  else SortROW(w, a, &n, 3, 4);
+  */
+  Sort(w, a, &n, 3, 4, flag);
   /******************************/
   out=fopen("out.dat","w");
   
