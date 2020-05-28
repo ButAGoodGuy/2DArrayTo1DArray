@@ -1,4 +1,13 @@
+/*
+Project:2DArrayTo1DArray
+Author: Boohey GUO
+V1.0 	初版
+V1.1 	SortByColumn:1,SortByRow:0；
+			将SortCOLUMN、SortROW两个函数合并成Sort函数；
+*/
+
 #include <stdio.h>
+/*
 void SortCOLUMN(int (*s)[10], int *b, int *n,int mm, int nn)
 {
 	int ROW, COLUMN;
@@ -23,6 +32,33 @@ void SortROW(int(*s)[10], int *b, int *n, int mm, int nn)
 		}
 	}
 }
+*/
+void Sort(int(*s)[10], int *b, int *n, int mm, int nn,int flag)
+{
+	int i, j, num_i, num_j;
+	if (flag)//SortCOLUMN
+	{
+		num_i = nn;
+		num_j = mm;
+	}
+	else //SortROW
+	{
+		num_i = mm;
+		num_j = nn;
+
+	}
+	for (i=0; i < num_i; i++)
+	{
+		for (j=0; j < num_j; j++)
+		{
+			if (flag)
+				b[*n] = *(*(s + j) + i);//SortCOLUMN
+			else
+				b[*n] = *(*(s + i) + j);//SortROW
+			(*n)++;
+		}
+	}
+}
 void main()
 {
   int w[10][10]={{33,33,33,33},{44,44,44,44},{55,55,55,55}}, i, j;
@@ -35,11 +71,13 @@ void main()
      printf("\n");
     }
   /******************************/
-  printf("SortByColumn:0,SortByRow:1\nEnter flag:");
+  printf("SortByColumn:1,SortByRow:0\nEnter flag:");
   scanf("%d", &flag);
+	/*
   if (flag) 
 	  SortCOLUMN(w, a, &n, 3, 4);
-  else SortROW(w, a, &n, 3, 4);
+  else SortROW(w, a, &n, 3, 4);*/
+	Sort(w, a, &n, 3, 4, flag);
   /******************************/
   out=fopen("out.dat","w");
   printf("The A array:\n");
