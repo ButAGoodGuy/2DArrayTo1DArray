@@ -4,6 +4,7 @@ Author: Boohey GUO
 V1.0 	初版
 V1.1 	SortByColumn:1,SortByRow:0；
 	将SortCOLUMN、SortROW两个函数合并成Sort函数；
+V1.2	增加了注释，优化了部分代码
 */
 
 #include <stdio.h>
@@ -13,7 +14,7 @@ void Sort();
 
 void main()
 {
-  int w[10][10]={{33,33,33,33},{44,44,44,44},{55,55,55,55}}, i, j;
+  int w[10][10]={{0,1,2,3},{4,5,6,7},{8,9,10,11}}, i, j;
   int a[100]={0},n=0,flag ;
   FILE *out;
   printf("The matrix:\n");
@@ -27,12 +28,17 @@ void main()
   scanf("%d", &flag);
 	/*
   if (flag) 
-	  SortCOLUMN(w, a, &n, 3, 4);
+	SortCOLUMN(w, a, &n, 3, 4);
   else SortROW(w, a, &n, 3, 4);*/
 	Sort(w, a, &n, 3, 4, flag);
   /******************************/
   out=fopen("out.dat","w");
-  printf("The A array:\n");
+  
+  if(flag)
+ 	printf("The A array sort by column is:\n");
+  else
+ 	printf("The A array sort by row is:\n");
+	
   for(i=0; i<n; i++)  
   {     printf("%3d",a[i]); 
 	fprintf(out,"%d ",a[i]);
@@ -73,13 +79,13 @@ void Sort(int(*s)[10], int *b, int *n, int mm, int nn,int flag)
 	int i, j, num_i, num_j;
 	if (flag)//SortCOLUMN
 	{
-		num_i = nn;
-		num_j = mm;
+		num_i = nn;//COLUMN
+		num_j = mm;//ROW
 	}
 	else //SortROW
 	{
-		num_i = mm;
-		num_j = nn;
+		num_i = mm;//ROW
+		num_j = nn;//COLUMN
 
 	}
 	for (i=0; i < num_i; i++)
@@ -87,10 +93,11 @@ void Sort(int(*s)[10], int *b, int *n, int mm, int nn,int flag)
 		for (j=0; j < num_j; j++)
 		{
 			if (flag)
-				b[*n] = *(*(s + j) + i);//SortCOLUMN
+				b[(*n)++] = *(*(s + j) + i);//SortCOLUMN 
+				/*SortCOLUMN,flag=2,第COLUMN列，第0~ROW行，然后COLUMN++*/
 			else
-				b[*n] = *(*(s + i) + j);//SortROW
-			(*n)++;
+				b[(*n)++] = *(*(s + i) + j);//SortROW
+				/*SortROW,flag=0,第ROW行，第0~COLUMN列,，然后ROW++*/
 		}
 	}
 }
